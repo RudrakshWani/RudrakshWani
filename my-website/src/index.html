@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shivam Solar Power - Nashik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            background-image: url('BackgroundImage.png'); /* Ensure this path is correct */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-size: 1.05rem; /* Base font size increased */
+        }
+
+        /* Nav styles */
+        nav {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 1.5rem;
+            max-width: 48rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            z-index: 20;
+            position: fixed; /* Fixed navigation */
+            top: 0;
+            left: 0;
+            right: 0;
+            transform: translateX(0%); /* Center fixed nav */
+            display: flex; /* Use flex for internal alignment */
+            justify-content: space-between; /* Space out items */
+            align-items: center; /* Vertically align items */
+        }
+
+        nav a {
+            font-weight: 500;
+            color: #4a5568;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.25rem;
+            cursor: pointer; /* Indicate clickable */
+            background: none; /* Reset background for links */
+            border: none;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        /* Active link styling */
+        nav a.active-nav-link {
+             color: #2d3748;
+             font-weight: 700;
+        }
+
+        /* Nav button specific styles */
+        nav .nav-button {
+            background-color: #2563eb; /* Blue background */
+            color: white; /* White text */
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem; /* Slightly more rounded than links */
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem; /* Ensure text size matches links */
+        }
+
+        nav .nav-button:hover {
+            background-color: #1d4ed8; /* Darker blue on hover */
+            transform: translateY(-1px); /* Slight lift on hover */
+            color: white; /* Keep text white on hover */
+        }
+
+        /* Mobile Menu Specific Styles */
+        .hamburger-menu {
+            display: none; /* Hidden by default on larger screens */
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            cursor: pointer;
+            z-index: 30; /* Above nav */
+        }
+
+        .hamburger-menu div {
+            width: 100%;
+            height: 3px;
+            background-color: #2d3748;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links-mobile {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            right: 0; /* Position from right */
+            width: 100%; /* Default to 100% but overridden by max-width */
+            max-width: 300px; /* Make it smaller */
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-left: 1px solid rgba(255, 255, 255, 0.5); /* Add a border for panel look */
+            z-index: 25;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 60px; /* Space for close button */
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%); /* Start off-screen to the right */
+            box-shadow: -4px 0 10px rgba(0,0,0,0.1); /* Shadow to make it look like a panel */
+        }
+
+        .nav-links-mobile.open {
+            transform: translateX(0); /* Slide in */
+            display: flex; /* Show when open */
+        }
+
+        .nav-links-mobile a, .nav-links-mobile button {
+            color: #2d3748;
+            font-size: 1.25rem; /* Slightly smaller font for compact menu */
+            margin: 0.75rem 0; /* Reduced margin */
+            display: block;
+            text-align: center;
+            width: 90%; /* Make links wider for easier tapping */
+            padding: 0.6rem; /* Reduced padding */
+            border-radius: 0.5rem;
+        }
+        .nav-links-mobile a:hover {
+            background-color: rgba(0, 0, 0, 0.08);
+        }
+        .nav-links-mobile button {
+            background-color: #2563eb;
+            color: white;
+            font-weight: 600;
+        }
+        .nav-links-mobile button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .close-mobile-menu {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem; /* Smaller close button */
+            color: #2d3748;
+            cursor: pointer;
+        }
+
+        /* Page Sections - all hidden by default, shown by JS */
+        .page-section {
+            display: none; /* Hidden by default */
+            flex-grow: 1; /* Allows content to push footer down */
+            padding-top: 7rem; /* Space below fixed nav */
+            padding-bottom: 2rem; /* Padding before footer */
+        }
+
+        /* Core Liquid Glass Styles - applied to .content-wrapper */
+        .content-wrapper {
+            background: rgba(255, 255, 255, 0.4); /* Increased opacity for better readability */
+            backdrop-filter: blur(15px) saturate(180%); /* Core glass effect */
+            border: 1px solid rgba(255, 255, 255, 0.5); /* Slightly stronger light border */
+            border-radius: 1.5rem; /* Consistent rounded corners */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+            
+            padding: 2.5rem; /* Common padding for all content wrappers */
+            margin: 2rem auto; /* Default margin for centering on other pages */
+            max-width: 900px; /* Max width for readability on all pages */
+            z-index: 10;
+            position: relative; /* For pseudo-element positioning */
+            overflow: hidden; /* Important for the pseudo-element highlight */
+        }
+
+        /* Inner highlight effect for all glass blocks */
+        .content-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0) 50%,
+                rgba(255, 255, 255, 0.1) 100%
+            ); /* Subtle diagonal highlight */
+            border-radius: inherit; /* Inherit border-radius from parent */
+            pointer-events: none; /* Allows clicks to pass through */
+            z-index: 0; /* Keep it behind content */
+        }
+        /* Ensure actual content is above the pseudo-element highlight */
+        .content-wrapper > *,
+        .content-wrapper h1,
+        .content-wrapper h2,
+        .content-wrapper h3,
+        .content-wrapper p,
+        .content-wrapper form,
+        .content-wrapper .product-grid,
+        .content-wrapper .bottom-products,
+        .content-wrapper .news-list,
+        .content-wrapper .grid,
+        .content-wrapper .gallery-grid {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Home Page Specifics - container for the hero block positioning */
+        .home-content-container { 
+            display: flex;
+            flex-direction: row; /* Pushes content to the right */
+            justify-content: flex-end; /* Pushes content to the RIGHT */
+            align-items: center; /* Vertically centers the block */
+            padding: 2rem;
+            min-height: calc(100vh - 8rem); 
+            width: 100%; /* Ensure it spans full width for correct alignment */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        /* Specific styles for the Home page's liquid glass block */
+        .home-hero-block {
+            max-width: 500px; /* Specific width for home hero block */
+            margin-right: 5%; /* Margin from right edge */
+            transform: translateY(-30px); /* Shifts the block upwards slightly */
+            text-align: center; /* Center text within the home hero block */
+            margin-left: auto; /* Override default auto margins from .content-wrapper */
+        }
+        
+        .home-hero-block h1 {
+            font-size: 2.8rem; /* Increased font size */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #2d3748; 
+            text-align: center; /* Ensure text is centered within the block */
+        }
+        .home-hero-block p {
+            font-size: 1.25rem; /* Increased font size */
+            margin-bottom: 2rem;
+            color: #2d3748; /* Darker text for better readability */
+            text-align: center; /* Ensure text is centered within the block */
+        }
+        /* Primary button for home hero and 'Read More' on home */
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            display: inline-block; /* For button styling */
+            border: none; /* Ensure no default button border */
+            cursor: pointer;
+            font-size: 1.05rem; /* Consistent button text size */
+        }
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Hero Products Scroll Container */
+        .hero-products-scroll-container {
+            position: relative;
+            max-width: 900px; /* Limit width */
+            margin: 2rem auto;
+            padding: 0 3rem; /* Space for arrows */
+        }
+
+        .hero-products-wrapper {
+            display: flex;
+            overflow-x: hidden; /* Hide scrollbar */
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            gap: 1.5rem; /* Space between cards */
+            justify-content: center; /* Center cards if less than 3 */
+            align-items: flex-start; /* Align tops of cards */
+        }
+        
+        .hero-products-wrapper .product-card {
+            min-width: 280px; /* Ensure cards have minimum width */
+            flex: 0 0 calc(33.333% - 1rem); /* 3 items per row, accounting for gap */
+            background-color: rgba(255, 255, 255, 0.8); /* Stronger background for product cards */
+        }
+
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 15; /* Above content-wrapper */
+            font-size: 1.5rem;
+            color: #2d3748;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .scroll-arrow:hover {
+            background-color: rgba(255, 255, 255, 1);
+            color: #2563eb;
+        }
+        .scroll-arrow.left {
+            left: 0.5rem;
+        }
+        .scroll-arrow.right {
+            right: 0.5rem;
+        }
+
+        /* Products Page Specifics (retained from previous) */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background-color: rgba(255, 255, 255, 0.8); /* Consistent stronger background for product cards */
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-0.3125rem);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card h3 {
+            font-weight: 700;
+            color: #2d3748;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            font-size: 1.15rem; /* Increased font size */
+        }
+
+        .product-card p {
+            color: #2d3748; /* Darker text for better readability */
+            font-size: 1.05rem; /* Increased font size for product descriptions */
+        }
+        
+        /* Bottom product cards (can be used on any page or removed) */
+        .bottom-products {
+            display: flex;
+            justify-content: center;
+            column-gap: 1.5rem;
+            margin-top: 2rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .bottom-product-card {
+            background-color: rgba(255, 255, 255, 0.9); /* Remains a lighter translucent card */
+            backdrop-filter: blur(5px);
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            width: 16rem;
+            position: relative;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-bottom: 1rem; /* For wrapping on mobile */
+        }
+
+        .bottom-product-card:hover {
+            transform: translateY(-0.3125rem);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* About Us & Contact Page Specifics (use .content-wrapper for common styles) */
+        .content-wrapper h1 {
+            font-size: 2.5rem; /* Increased font size */
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .content-wrapper h2 {
+            font-size: 2rem; /* Increased font size */
+            font-weight: 600;
+            color: #2d3748;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .content-wrapper p {
+            color: #2d3748; /* Darker text for better readability */
+            line-height: 1.7; /* Increased line height for better spacing */
+            margin-bottom: 1rem;
+            font-size: 1.15rem; /* Increased font size for detailed text sections */
+        }
+        .content-wrapper p:last-child {
+            margin-bottom: 0;
+        }
+
+        .news-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.5); /* Stronger border for news list */
+            padding-top: 1.5rem;
+        }
+
+        .news-list li {
+            background-color: rgba(255, 255, 255, 0.7); /* Stronger background for news items */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            color: #2d3748;
+            font-size: 1.05rem; /* Increased font size */
+        }
+        .news-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Gallery Page Specifics */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Exactly 4 columns */
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            background-color: rgba(255, 255, 255, 0.8); /* Stronger background for gallery items */
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 150px; /* Adjusted height for consistency and more items per row */
+            object-fit: cover; /* Cover the area, cropping if necessary */
+            display: block;
+        }
+
+        .gallery-item .title {
+            padding: 0.75rem; /* Slightly reduced padding */
+            font-weight: 600;
+            color: #2d3748;
+            text-align: center;
+            font-size: 0.95rem; /* Slightly reduced font size to fit */
+        }
+
+
+        /* Contact Form & Call Back Form Specifics */
+        .contact-form label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+            font-size: 1rem; /* Consistent label font size */
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form input[type="tel"],
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e0;
+            border-radius: 0.375rem;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem; /* Consistent input font size */
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: rgba(255,255,255,0.9); /* Slightly opaque for input fields */
+            color: #2d3748; /* Darker input text */
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 1.5rem;
+            display: block;
+            width: 100%;
+            font-size: 1.05rem; /* Consistent button text size */
+        }
+        .contact-form button:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Modal/Popup Styles */
+        .modal {
+            display: none; /* Hidden by default - IMPORTANT */
+            position: fixed; /* Stay in place */
+            z-index: 100; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+            backdrop-filter: blur(8px); /* Blur behind modal */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.4); /* Consistent opacity for modal */
+            backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+            margin: auto; /* Ensure it's centered if the modal itself isn't flex-centered */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #2d3748;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .modal-content h2 {
+            font-size: 1.75rem;
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            margin-top: auto;
+            font-size: 0.95rem; /* Footer font size */
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 1024px) { /* Adjust for 2 columns on medium screens */
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 1rem; /* Adjust base font size for smaller screens */
+            }
+            nav {
+                max-width: 90%;
+                margin-top: 1rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            /* Hide desktop nav links and show hamburger */
+            #desktop-nav-links {
+                display: none; 
+            }
+            .hamburger-menu {
+                display: flex; /* Show hamburger on small screens */
+            }
+            nav { /* Ensure nav itself remains flex for positioning logo/hamburger */
+                width: 100%; /* Take full width on small screens */
+            }
+            
+            .page-section {
+                padding-top: 5rem; /* Adjusted for smaller nav on mobile */
+            }
+
+            .home-content-container {
+                flex-direction: column; /* Stack on mobile */
+                justify-content: center; /* Center vertically */
+                align-items: center;
+                padding: 1rem; /* Adjust padding for smaller screens */
+            }
+
+            .home-hero-block {
+                margin-right: auto; /* Remove explicit right margin on mobile */
+                max-width: 95%; /* Adjust width for mobile */
+                transform: translateY(0); /* Reset vertical shift on mobile for better centering */
+            }
+
+            .home-hero-block h1 {
+                font-size: 2.2rem; /* Adjusted for mobile */
+            }
+            .home-hero-block p {
+                font-size: 1.1rem; /* Adjusted for mobile */
+            }
+            
+            /* General content wrapper adjustments for mobile */
+            .content-wrapper {
+                padding: 1.5rem;
+                margin: 1.5rem auto;
+                max-width: 95%;
+            }
+            .content-wrapper h1 {
+                font-size: 2.2rem; /* Adjusted for mobile */
+            }
+            .content-wrapper h2 {
+                font-size: 1.7rem; /* Adjusted for mobile */
+            }
+            .content-wrapper p {
+                font-size: 1.05rem; /* Adjusted for mobile */
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-products-scroll-container {
+                padding: 0 1rem; /* Adjust padding for arrows on mobile */
+            }
+            .hero-products-wrapper {
+                flex-wrap: nowrap; /* Keep single line scrolling */
+                overflow-x: scroll; /* Enable scrolling on mobile */
+                justify-content: flex-start; /* Align to start for scrolling */
+            }
+            .hero-products-wrapper .product-card {
+                flex: 0 0 80%; /* Show more of one card on smaller screens */
+                max-width: 300px; /* Cap width */
+            }
+            .scroll-arrow {
+                display: none; /* Hide arrows on very small screens if native scroll is preferred */
+            }
+            
+            .bottom-products {
+                flex-direction: column;
+                align-items: center;
+                margin: 1.5rem auto;
+                max-width: 95%;
+            }
+            
+            .bottom-product-card {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr; /* Single column on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a class="font-bold text-gray-800 hover:text-blue-600 transition nav-link" data-target="home-section">Home</a>
+        
+        <!-- Desktop Nav Links -->
+        <div class="flex space-x-6" id="desktop-nav-links">
+            <a class="font-medium text-gray-700 hover:text-blue-600 transition nav-link" data-target="products-section">Products</a>
+            <a class="font-medium text-gray-700 hover:text-blue-600 transition nav-link" data-target="about-section">About Us</a>
+            <a class="font-medium text-gray-700 hover:text-blue-600 transition nav-link" data-target="gallery-section">Gallery</a>
+            <button id="openCallBackModal" class="nav-button">Request Call Back</button>
+        </div>
+
+        <!-- Hamburger Menu Icon (Mobile) -->
+        <div class="hamburger-menu" id="hamburger-menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="nav-links-mobile" id="mobile-nav-links">
+        <span class="close-mobile-menu" id="close-mobile-menu">&times;</span>
+        <a class="nav-link" data-target="home-section">Home</a>
+        <a class="nav-link" data-target="products-section">Products</a>
+        <a class="nav-link" data-target="about-section">About Us</a>
+        <a class="nav-link" data-target="gallery-section">Gallery</a>
+        <button id="openCallBackModalMobile" class="nav-button">Request Call Back</button>
+    </div>
+
+    <!-- Home Section -->
+    <div id="home-section" class="page-section active-section" style="display: flex; flex-direction: column; align-items: center;">
+        <!-- Hero Block -->
+        <div class="home-content-container" style="flex-grow: 0; min-height: auto;">
+            <div class="content-wrapper home-hero-block">
+                <h1>Power Your Future with Solar Energy</h1>
+                <p>Explore our sustainable solutions for homes and businesses, designed for a brighter, cleaner tomorrow.</p>
+                <a class="btn-primary nav-link" data-target="products-section">View Products</a>
+            </div>
+        </div>
+
+        <!-- Our Hero Products Section -->
+        <div class="hero-products-scroll-container content-wrapper">
+            <h2>Our Hero Products</h2>
+            <div class="hero-products-wrapper" id="heroProductsScroll">
+                <div class="product-card">
+                    <h3>Residential Solar Panels</h3>
+                    <p>High-efficiency panels reducing your home's electricity bills and carbon footprint.</p>
+                </div>
+                <div class="product-card">
+                    <h3>Commercial Solar Solutions</h3>
+                    <p>Scalable, robust systems for businesses, offering substantial energy savings and ROI.</p>
+                </div>
+                <div class="product-card">
+                    <h3>Energy Storage Batteries</h3>
+                    <p>Reliable solutions to store solar energy, ensuring power during outages or at night.</p>
+                </div>
+                <!-- Add more product cards here if needed for scrolling -->
+                 <div class="product-card">
+                    <h3>Solar Water Heaters</h3>
+                    <p>Efficient and eco-friendly solutions for consistent hot water, year-round.</p>
+                </div>
+                <div class="product-card">
+                    <h3>Solar Lighting Systems</h3>
+                    <p>Sustainable lighting solutions for pathways, gardens, and off-grid needs.</p>
+                </div>
+            </div>
+            <div class="scroll-arrow left" onclick="scrollProducts(-1)"><i class="fas fa-chevron-left">&#8249;</i></div>
+            <div class="scroll-arrow right" onclick="scrollProducts(1)"><i class="fas fa-chevron-right">&#8250;</i></div>
+        </div>
+
+        <!-- Vision Section -->
+        <div class="content-wrapper w-full max-w-4xl mt-8 text-center">
+            <h2>Our Vision</h2>
+            <p>To lead the transition to a sustainable energy future by making solar power accessible, affordable, and impactful for every home and business in Nashik and beyond.</p>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="content-wrapper w-full max-w-4xl mt-8 text-center">
+            <h2>Our Mission</h2>
+            <p>To provide high-quality solar products and exceptional service, enabling our customers to harness solar energy efficiently, reduce their environmental footprint, and achieve energy independence.</p>
+        </div>
+
+        <!-- About Us Summary -->
+        <div class="content-wrapper w-full max-w-4xl mt-8">
+            <h2>About Shivam Solar Power</h2>
+            <p>Established in 2015, Shivam Solar Power has emerged as a leading Wholesaler, Trader, Retailer, and Service Provider in the solar energy sector in Nashik. We specialize in high-quality Solar Water Heaters, comprehensive Solar Systems, and efficient Solar Lighting Systems, earning immense acclaim within the industry.</p>
+            <p>Our commitment to excellence ensures that every project is executed with precision, providing you with reliable and sustainable energy solutions.</p>
+            <div class="text-center mt-6">
+                <a class="btn-primary nav-link" data-target="about-section">Read More About Us</a>
+            </div>
+        </div>
+
+        <!-- Request Call Back Block at End of Home Page -->
+        <div class="content-wrapper w-full max-w-4xl mt-8 text-center">
+            <h2>Ready to Go Solar?</h2>
+            <p class="mb-4">Fill out the form below and our experts will get in touch with you shortly to discuss your solar needs.</p>
+            <button id="openCallBackModalHome" class="btn-primary">Request a Call Back Now</button>
+        </div>
+
+    </div>
+    
+    <!-- Products Section -->
+    <div id="products-section" class="page-section">
+        <!-- This block now has the general glass style -->
+        <div class="content-wrapper">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Our Solar Energy Products</h1>
+            
+            <div class="product-grid">
+                <div class="product-card">
+                    <h3>Residential Solar Panels</h3>
+                    <p>High-efficiency solar panels designed for home rooftops, significantly reducing your electricity bills and carbon footprint.</p>
+                </div>
+                
+                <div class="product-card">
+                    <h3>Commercial Solar Solutions</h3>
+                    <p>Scalable and robust solar energy systems for businesses and large commercial properties, offering substantial energy savings and ROI.</p>
+                </div>
+
+                <div class="product-card">
+                    <h3>Solar Inverters</h3>
+                    <p>Advanced inverters that efficiently convert DC power from solar panels into usable AC electricity for your home or business.</p>
+                </div>
+
+                <div class="product-card">
+                    <h3>Energy Storage Batteries</h3>
+                    <p>Reliable battery solutions to store excess solar energy, ensuring power availability during outages or at night.</p>
+                </div>
+                <div class="product-card">
+                    <h3>Solar Water Heaters</h3>
+                    <p>Eco-friendly and cost-effective solutions for continuous hot water supply.</p>
+                </div>
+                <div class="product-card">
+                    <h3>Solar Lighting Systems</h3>
+                    <p>Sustainable and reliable lighting for various applications, reducing dependency on grid power.</p>
+                </div>
+            </div>
+            
+            <h2 class="text-2xl font-bold text-gray-800 mt-12 mb-6 text-center">Explore Our Value</h2>
+            <div class="bottom-products">
+                <div class="bottom-product-card">
+                    <h3 class="font-bold text-gray-800 uppercase mb-2">Free Consultation</h3>
+                    <p class="text-gray-600 text-sm">Get a no-obligation assessment of your energy needs and a customized solar proposal.</p>
+                </div>
+                
+                <div class="bottom-product-card">
+                    <h3 class="font-bold text-gray-800 uppercase mb-2">Installation & Support</h3>
+                    <p class="text-gray-600 text-sm">Professional installation and dedicated post-installation support for seamless operation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- About Us Section -->
+    <div id="about-section" class="page-section">
+        <!-- This block now has the general glass style -->
+        <div class="content-wrapper">
+            <h1>About Us: Shivam Solar Power, Nashik</h1>
+            <p>Established in 2015, Shivam Solar Power has emerged as a leading Wholesaler, Trader, Retailer, and Service Provider in the solar energy sector. We specialize in high-quality Solar Water Heaters, comprehensive Solar Systems, and efficient Solar Lighting Systems, earning immense acclaim within the industry.</p>
+            <p>Our mission is to make solar energy accessible, affordable, and efficient for everyone. We believe in harnessing the abundant power of the sun to reduce carbon footprints, lower electricity costs, and create energy independence for our customers. We are proudly based in Nashik, Maharashtra.</p>
+            <p>With years of experience in the renewable energy sector, our team of certified experts ensures every project is executed with precision, quality, and a deep understanding of your unique energy needs. We pride ourselves on exceptional customer service, innovative solutions, and a commitment to building a brighter, greener future, one solar panel at a time.</p>
+
+            <h2 class="text-xl font-bold text-gray-800 mt-8 mb-4 text-center">Latest Updates</h2>
+            <ul class="news-list">
+                <li><strong>New Offers:</strong> Solar geyser in Nashik! Solar geyser near me with best discount of 10%! Solar Supreme water heater geyser with free installation! Solar Water Heater 500 ltr price of 45000 with 2% cashback!</li>
+                <li>Happy Dussera to all!</li>
+                <li>Water heater services available in Nashik.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div id="gallery-section" class="page-section">
+        <div class="content-wrapper">
+            <h1>Our Photo Gallery</h1>
+            <p class="text-center mb-6 text-gray-700">Explore our projects and products through these images.</p>
+            
+            <div class="gallery-grid">
+                <!-- Example Gallery Items - Replace with actual images -->
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x150?text=Solar+Installation+1" alt="Solar Installation 1">
+                    <div class="title">Residential Project</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x150?text=Solar+Panel+Product" alt="Solar Panel Product">
+                    <div class="title">High-Efficiency Panels</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x150?text=Commercial+Project" alt="Commercial Project">
+                    <div class="title">Commercial Rooftop</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x150?text=Battery+Storage" alt="Battery Storage">
+                    <div class="title">Energy Storage Solution</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x150?text=Water+Heater" alt="Water Heater">
+                    <div class="title">Solar Water Heater</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x150?text=Solar+Light" alt="Solar Light">
+                    <div class="title">Outdoor Solar Lighting</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x150?text=Solar+Farm" alt="Solar Farm">
+                    <div class="title">Utility Scale Project</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x150?text=Solar+Inverter" alt="Solar Inverter">
+                    <div class="title">Inverter System</div>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <button class="btn-primary" onclick="alert('This button would load more images or take you to a dedicated gallery page!')">View More Photos</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact-section" class="page-section">
+        <!-- This block now has the general glass style -->
+        <div class="content-wrapper">
+            <h1>Contact Us</h1>
+            <p class="text-center mb-6 text-gray-700">Have questions or ready to go solar? Reach out to us directly!</p>
+            
+            <form class="contact-form" id="contactForm">
+                <label for="contact_name">Name</label>
+                <input type="text" id="contact_name" name="contact_name" required>
+
+                <label for="contact_email">Email</label>
+                <input type="email" id="contact_email" name="contact_email" required>
+
+                <label for="contact_subject">Subject</label>
+                <input type="text" id="contact_subject" name="contact_subject">
+
+                <label for="contact_message">Message</label>
+                <textarea id="contact_message" name="contact_message" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+
+            <p class="text-center text-gray-600 mt-8">
+                You can also reach us directly:<br>
+                Email: <a href="mailto:shivamsolarpower9@gmail.com" class="text-blue-600 hover:underline">shivamsolarpower9@gmail.com</a><br>
+                Phone: <a href="tel:+918048028834" class="text-blue-600 hover:underline">+91 8048028834</a> (Primary)<br>
+                WhatsApp: <a href="https://wa.me/918888066656" target="_blank" class="text-blue-600 hover:underline">+91 8888066656</a><br>
+                Address: Nashik, Maharashtra, India
+            </p>
+            <p class="text-center text-gray-600 mt-4">
+                <strong>Opening Hours:</strong><br>
+                Monday - Sunday: 9:00 AM to 10:00 PM
+            </p>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Shivam Solar Power. Made in India with Boost 360.</p>
+    </footer>
+
+    <!-- Request Call Back Modal -->
+    <div id="callBackModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Request a Call Back</h2>
+            <p class="text-center text-gray-700 mb-6">Let us know how we can assist you. Fill out the form below, and we'll get in touch!</p>
+            
+            <form class="contact-form" id="callBackForm">
+                <label for="modal_callback_name">Full Name</label>
+                <input type="text" id="modal_callback_name" name="modal_callback_name" required>
+
+                <label for="modal_callback_email">Email Address</label>
+                <input type="email" id="modal_callback_email" name="modal_callback_email" required>
+
+                <label for="modal_callback_phone">Phone Number</label>
+                <input type="tel" id="modal_callback_phone" name="modal_callback_phone" required>
+
+                <label for="modal_contact_method">Preferred Contact Method</label>
+                <select id="modal_contact_method" name="modal_contact_method">
+                    <option value="phone">Phone Call</option>
+                    <option value="email">Email</option>
+                </select>
+
+                <label for="modal_best_time">Best Time to Call</label>
+                <select id="modal_best_time" name="modal_best_time">
+                    <option value="morning">Morning (9 AM - 12 PM)</option>
+                    <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+                    <option value="evening">Evening (5 PM - 8 PM)</option>
+                </select>
+
+                <label for="modal_callback_message">Your Message / Inquiry</label>
+                <textarea id="modal_callback_message" name="modal_callback_message" rows="4"></textarea>
+
+                <button type="submit">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK Imports -->
+    <script type="module">
+        // Import the functions you need from the Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        // PASTE YOUR FIREBASE CONFIG OBJECT HERE (from Firebase Console -> Project settings -> Your apps -> Web app setup)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY", // <<< REPLACE WITH YOUR ACTUAL API KEY
+            authDomain: "YOUR_AUTH_DOMAIN", // <<< REPLACE WITH YOUR ACTUAL AUTH DOMAIN
+            projectId: "YOUR_PROJECT_ID", // <<< REPLACE WITH YOUR ACTUAL PROJECT ID
+            storageBucket: "YOUR_STORAGE_BUCKET", // <<< REPLACE WITH YOUR ACTUAL STORAGE BUCKET
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // <<< REPLACE WITH YOUR ACTUAL MESSAGING SENDER ID
+            appId: "YOUR_APP_ID" // <<< REPLACE WITH YOUR ACTUAL APP ID
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app); // Get a reference to the Firestore database
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.page-section');
+            const callBackModal = document.getElementById('callBackModal');
+            const openCallBackModalBtn = document.getElementById('openCallBackModal');
+            const openCallBackModalMobileBtn = document.getElementById('openCallBackModalMobile'); 
+            const openCallBackModalHomeBtn = document.getElementById('openCallBackModalHome'); 
+            const closeButton = document.querySelector('.modal .close-button');
+            const heroProductsScroll = document.getElementById('heroProductsScroll');
+
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+            const closeMobileMenu = document.getElementById('close-mobile-menu');
+
+            // Form elements
+            const contactForm = document.getElementById('contactForm');
+            const callBackForm = document.getElementById('callBackForm');
+
+            function showSection(targetId) {
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.style.display = 'flex'; 
+                        section.style.flexDirection = 'column';
+                        section.style.alignItems = 'center'; 
+                    } else {
+                        section.style.display = 'none'; 
+                    }
+                });
+
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active-nav-link');
+                    if (link.dataset.target === targetId) {
+                        link.classList.add('active-nav-link');
+                    }
+                });
+
+                mobileNavLinks.classList.remove('open');
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    const targetId = e.target.dataset.target;
+                    showSection(targetId);
+                });
+            });
+
+            openCallBackModalBtn.onclick = function() {
+                callBackModal.style.display = "flex"; 
+            }
+            openCallBackModalMobileBtn.onclick = function() {
+                callBackModal.style.display = "flex"; 
+                mobileNavLinks.classList.remove('open'); 
+            }
+            if (openCallBackModalHomeBtn) { 
+                openCallBackModalHomeBtn.onclick = function() {
+                    callBackModal.style.display = "flex";
+                }
+            }
+
+            closeButton.onclick = function() {
+                callBackModal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == callBackModal) {
+                    callBackModal.style.display = "none";
+                }
+            }
+
+            window.scrollProducts = function(direction) {
+                const scrollAmount = heroProductsScroll.querySelector('.product-card').offsetWidth * 1.15; 
+                heroProductsScroll.scrollBy({
+                    left: direction * scrollAmount,
+                    behavior: 'smooth'
+                });
+            };
+
+            hamburgerMenu.addEventListener('click', () => {
+                mobileNavLinks.classList.toggle('open');
+            });
+
+            closeMobileMenu.addEventListener('click', () => {
+                mobileNavLinks.classList.remove('open');
+            });
+
+            showSection('home-section');
+
+            // Automatically open call back modal after a 15-second delay
+            setTimeout(() => {
+                callBackModal.style.display = "flex";
+            }, 15000); 
+
+            // --- Form Submission Logic with Firebase Firestore ---
+            async function handleSubmit(event, collectionName) {
+                event.preventDefault(); // Prevent default form submission
+                const form = event.target;
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                // Add a timestamp to the data
+                data.timestamp = serverTimestamp(); // Use Firestore's server timestamp
+                data.formType = collectionName === 'contact_submissions' ? 'Contact Form' : 'Call Back Request';
+
+                try {
+                    // Add a new document to the specified Firestore collection
+                    await addDoc(collection(db, collectionName), data);
+                    alert('Your message has been sent and saved successfully!'); // Success message
+                    form.reset(); // Clear the form
+                    if (collectionName === 'callback_requests') {
+                        callBackModal.style.display = 'none'; // Close modal on success
+                    }
+                } catch (error) {
+                    console.error('Error submitting form to Firestore:', error);
+                    alert('Failed to send message. Please try again later.'); // Error message
+                }
+            }
+
+            // Attach event listeners to the forms
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => handleSubmit(e, 'contact_submissions'));
+            }
+            if (callBackForm) {
+                callBackForm.addEventListener('submit', (e) => handleSubmit(e, 'callback_requests'));
+            }
+
+            // --- End Form Submission Logic ---
+        });
+    </script>
+</body>
+</html>

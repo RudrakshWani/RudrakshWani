@@ -1,0 +1,26 @@
+{
+  "name": "shivam-solar-backend",
+  "version": "1.0.0",
+  "description": "Backend server for Shivam Solar Power contact forms.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "nodemailer": "^6.9.13",
+    "firebase-admin": "^12.1.0"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "forms",
+    "contact",
+    "email"
+  ],
+  "author": "Shivam Solar Power",
+  "license": "MIT"
+}
